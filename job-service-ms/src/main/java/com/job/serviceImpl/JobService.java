@@ -18,6 +18,8 @@ import com.job.external.Review;
 import com.job.mapper.JobMapper;
 import com.job.repository.JobRepository;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Service
 public class JobService {
 
@@ -49,6 +51,7 @@ public class JobService {
 		return dto;
 	}
 
+	@CircuitBreaker(name="companyBreaker")
 	public List<JobDTO> findAll() {
 
 		List<Job> jobs = jobRepository.findAll();
